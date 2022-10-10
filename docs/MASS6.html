@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Midwinter Aerial Seabird Survey (MASS) | Transboundary avain data for the Salish Sea: An R users guide</title>
+  <meta name="description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Midwinter Aerial Seabird Survey (MASS) | Transboundary avain data for the Salish Sea: An R users guide" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
+  <meta property="og:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="github-repo" content="DMEthier/DataCompile-SDJV" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Midwinter Aerial Seabird Survey (MASS) | Transboundary avain data for the Salish Sea: An R users guide" />
+  
+  <meta name="twitter:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="twitter:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
+
+<meta name="author" content="Danielle Ethier" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="PSSS5.html"/>
+<link rel="next" href="eBird7.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="mystyles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Transboundary avain data for the Salish Sea: An R users guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome pacific sea duck data users!</a></li>
+<li class="chapter" data-level="1" data-path="Intro1.html"><a href="Intro1.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="Intro1.html"><a href="Intro1.html#project-title"><i class="fa fa-check"></i><b>1.1</b> Project Title</a></li>
+<li class="chapter" data-level="1.2" data-path="Intro1.html"><a href="Intro1.html#Intro1.1"><i class="fa fa-check"></i><b>1.2</b> Project Summary</a></li>
+<li class="chapter" data-level="1.3" data-path="Intro1.html"><a href="Intro1.html#Intro1.2"><i class="fa fa-check"></i><b>1.3</b> Guide Goals</a></li>
+<li class="chapter" data-level="1.4" data-path="Intro1.html"><a href="Intro1.html#guide-structure"><i class="fa fa-check"></i><b>1.4</b> Guide Structure</a></li>
+<li class="chapter" data-level="1.5" data-path="Intro1.html"><a href="Intro1.html#Intro1.3"><i class="fa fa-check"></i><b>1.5</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="BCCWS2.html"><a href="BCCWS2.html"><i class="fa fa-check"></i><b>2</b> British Columbia Coastal Waterbird Survey (BCCWS)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.1"><i class="fa fa-check"></i><b>2.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.2"><i class="fa fa-check"></i><b>2.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="2.3" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.3"><i class="fa fa-check"></i><b>2.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="2.4" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.4"><i class="fa fa-check"></i><b>2.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="2.5" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.5"><i class="fa fa-check"></i><b>2.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="2.6" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.6"><i class="fa fa-check"></i><b>2.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="2.7" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.7"><i class="fa fa-check"></i><b>2.7</b> Data Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="BCMA3.html"><a href="BCMA3.html"><i class="fa fa-check"></i><b>3</b> British Columbia Marine Bird Atlas (BCMA)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.1"><i class="fa fa-check"></i><b>3.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="3.2" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.2"><i class="fa fa-check"></i><b>3.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="3.3" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.3"><i class="fa fa-check"></i><b>3.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="3.4" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.4"><i class="fa fa-check"></i><b>3.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="3.5" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.5"><i class="fa fa-check"></i><b>3.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="3.6" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.6"><i class="fa fa-check"></i><b>3.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="3.7" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.7"><i class="fa fa-check"></i><b>3.7</b> Data Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="CPVS4.html"><a href="CPVS4.html"><i class="fa fa-check"></i><b>4</b> Canadian Pacific Vessle Survey (CPVS)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.1"><i class="fa fa-check"></i><b>4.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="4.2" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.2"><i class="fa fa-check"></i><b>4.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="4.3" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.3"><i class="fa fa-check"></i><b>4.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="4.4" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.4"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="4.5" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.5"><i class="fa fa-check"></i><b>4.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="4.6" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.6"><i class="fa fa-check"></i><b>4.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="4.7" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.7"><i class="fa fa-check"></i><b>4.7</b> Data Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="PSSS5.html"><a href="PSSS5.html"><i class="fa fa-check"></i><b>5</b> PSSS</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.1"><i class="fa fa-check"></i><b>5.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.2"><i class="fa fa-check"></i><b>5.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="5.3" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.3"><i class="fa fa-check"></i><b>5.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="5.4" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.4"><i class="fa fa-check"></i><b>5.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="5.5" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.5"><i class="fa fa-check"></i><b>5.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="5.6" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.6"><i class="fa fa-check"></i><b>5.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="5.7" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.7"><i class="fa fa-check"></i><b>5.7</b> Data Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="MASS6.html"><a href="MASS6.html"><i class="fa fa-check"></i><b>6</b> Midwinter Aerial Seabird Survey (MASS)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="MASS6.html"><a href="MASS6.html#MASS6.1"><i class="fa fa-check"></i><b>6.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="MASS6.html"><a href="MASS6.html#MASS6.2"><i class="fa fa-check"></i><b>6.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="6.3" data-path="MASS6.html"><a href="MASS6.html#MASS6.3"><i class="fa fa-check"></i><b>6.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="6.4" data-path="MASS6.html"><a href="MASS6.html#MASS6.4"><i class="fa fa-check"></i><b>6.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="6.5" data-path="MASS6.html"><a href="MASS6.html#MASS6.5"><i class="fa fa-check"></i><b>6.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="6.6" data-path="MASS6.html"><a href="MASS6.html#MASS6.6"><i class="fa fa-check"></i><b>6.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="6.7" data-path="MASS6.html"><a href="MASS6.html#MASS6.7"><i class="fa fa-check"></i><b>6.7</b> Data Processing</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="eBird7.html"><a href="eBird7.html"><i class="fa fa-check"></i><b>7</b> eBird (eBird)</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="eBird7.html"><a href="eBird7.html#eBird7.1"><i class="fa fa-check"></i><b>7.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="7.2" data-path="eBird7.html"><a href="eBird7.html#eBird7.2"><i class="fa fa-check"></i><b>7.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="7.3" data-path="eBird7.html"><a href="eBird7.html#eBird7.3"><i class="fa fa-check"></i><b>7.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="7.4" data-path="eBird7.html"><a href="eBird7.html#eBird7.4"><i class="fa fa-check"></i><b>7.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="7.5" data-path="eBird7.html"><a href="eBird7.html#eBird7.5"><i class="fa fa-check"></i><b>7.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="7.6" data-path="eBird7.html"><a href="eBird7.html#eBird7.6"><i class="fa fa-check"></i><b>7.6</b> Data Use Considerations</a></li>
+<li class="chapter" data-level="7.7" data-path="eBird7.html"><a href="eBird7.html#eBird7.7"><i class="fa fa-check"></i><b>7.7</b> Data Processing</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transboundary avain data for the Salish Sea: An R users guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="MASS6" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Midwinter Aerial Seabird Survey (MASS)<a href="MASS6.html#MASS6" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="images/MASS.PNG" width="700px" style="display: block; margin: auto;" /></p>
+<div id="MASS6.1" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Quick Data Overview<a href="MASS6.html#MASS6.1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Midwinter Aerial Seabird Survey (MASS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Owner</td>
+<td>Washington Department of Fish and Wildlife (WDFW)</td>
+</tr>
+<tr class="even">
+<td>Status</td>
+<td>Active</td>
+</tr>
+<tr class="odd">
+<td>Years</td>
+<td>1994 - present</td>
+</tr>
+<tr class="even">
+<td>Seasons</td>
+<td>Early Dec until the surveys are complete, which is usually in Feb</td>
+</tr>
+<tr class="odd">
+<td>Sampling</td>
+<td>Aerial flights along fixed routes</td>
+</tr>
+<tr class="even">
+<td>Data Access</td>
+<td><a href="https://data-wdfw.opendata.arcgis.com/documents/wdfw">Open Data Portal</a></td>
+</tr>
+<tr class="odd">
+<td>Contact</td>
+<td><a href="mailto:Joseph.Evenson@dfw.wa.gov" class="email">Joseph.Evenson@dfw.wa.gov</a> and <a href="mailto:Kyle.Spragens@dfw.wa.gov" class="email">Kyle.Spragens@dfw.wa.gov</a></td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://wdfw.wa.gov/species-habitats/at-risk/species-recovery/seabirds/surveys-winter-aerial">MASS Website</a>.</p>
+</div>
+<div id="MASS6.2" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Data Collection Protocol<a href="MASS6.html#MASS6.2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>links to a data collection sheet and protocol</em></p>
+<p>Surveys are flown each year by a crew of experienced WDFW biologists from early December until the surveys are complete, which is usually by the end of January or February. The surveys were designed to occur during midwinter, when sea ducks and other marine birds are least likely to be migrating. Flights are conducted at an altitude of 200 feet (61 meters) above the water and at an airspeed of 85-90 knots. Each biologist counts all marine bird and mammal observations within a 50-meter strip along their respective side of the aircraft. The surveys cover the entire shoreline of the inland marine waters of Washington. The offshore waters are sampled by flying a pre-designed zigzag pattern.</p>
+<p>MASS data processing notes can be found online by navigating to the ESRI <a href="https://www.arcgis.com/home/item.html?id=0d57403ea9eb45b7a8acabf3dd58c7b0">open data portal</a>. Download the data by clicking the <code>Open</code> button, then save the files to the <code>Data</code> directory in this project. Information on data processing can be found in the <code>Midwinter Aerial Seabird Surveys Geoprocessing Metadata Notes.pdf</code>.</p>
+<p>In short, during pre-processing the flight crew transcribe voice recordings of their observations, linking them with a series of GPS observation point locations collected during the survey. The results are two tab-delimited text files containing observation and track-log locations. When the surveyors have completed their transcription, a series of geoprocessing scripts are run which omit off-effort observations, calculate the extent of surveyed areas, and add appropriate attribute information to both observations and survey strips.</p>
+</div>
+<div id="MASS6.3" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Avian Data Collected<a href="MASS6.html#MASS6.3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>PSEMP_Survey_Observations</code> layer stores the processed bird observation data, including total <code>ObservationCount</code> of species on a given transect.</p>
+<p>Taxonomic Authority - <em>TaxoNameID of unknown authority</em></p>
+<p>There are three additional table which are used to assign species to species codes, scientific names, and groups.</p>
+<p><code>Species</code> This table lists the avian species groups recorded during the winter fixed-wing aerial shorebird surveys. It provides species common and scientific names as well as the species codes (TaxoNameID) necessary to crosswalk these species to group membership (for composite groups analyzed) and to other WDFW databases.</p>
+<p><code>PSEMP_Group</code> This table provides a list of composite groups of species surveys. Some of these groups were included in subsequent statistical analysis; these groups are noted in the “StatsRun” attribute.</p>
+<p><code>SpeciesPSEMP_Group</code> This associative table allows species observations to be crosswalked to composite groups that they participate in.</p>
+</div>
+<div id="MASS6.4" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Auxiliary Data Collected<a href="MASS6.html#MASS6.4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Each point observation contains detailed attribute information including date, time, TransectID, ObserverID, and environmental characteristics (i.e., wind, glare).</p>
+<p>The <code>MidwinterAerialSeaBirdSurvey.gdb</code> also contains a <code>PSEMP_Analysis_Strata</code> polygon file that contains the spatial extent and boundaries of the basin-depth strata. There are nine basins and six depth classes identified.</p>
+</div>
+<div id="MASS6.5" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Data Access, Permission, and Format<a href="MASS6.html#MASS6.5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data are accessible online by navigating to the ESRI <a href="https://www.arcgis.com/home/item.html?id=0d57403ea9eb45b7a8acabf3dd58c7b0">open data portal</a>. Download the data by clicking the <code>Open</code> button, then save the files to the <code>Data</code> directory in this project. The data are saved as a geodatabase (.gdb) and can be open in ArcGIS, QGIS, or in R, depending on your comfort with these different programs.</p>
+<p>Although the data are openly available, WDFW staff ask you develop a data-sharing agreement prior to analysis and publication.</p>
+</div>
+<div id="MASS6.6" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Data Use Considerations<a href="MASS6.html#MASS6.6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before using the information, please consult <a href="mailto:Joseph.Evenson@dfw.wa.gov" class="email">Joseph.Evenson@dfw.wa.gov</a> or <a href="mailto:Kyle.Spragens@dfw.wa.gov" class="email">Kyle.Spragens@dfw.wa.gov</a>. Appropriate use of the data or analysis requires a detailed understanding of the survey effort and how that effort has changed over time. Not accounting for these details are very likely to result in inappropriate interpretation.</p>
+</div>
+<div id="MASS6.7" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Data Processing<a href="MASS6.html#MASS6.7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="PSSS5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eBird7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

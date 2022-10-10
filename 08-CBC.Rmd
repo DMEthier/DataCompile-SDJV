@@ -1,0 +1,59 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Christmas Bird Count (CBC) {#CBC8}
+
+```{r tidyr8, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=50), tidy = FALSE)
+
+```
+
+```{r image, echo=FALSE, out.width="700px", fig.align='center'}
+knitr::include_graphics("images/CBC.PNG")
+```
+
+## Quick Data Overview {#CBC8.1}
+
+| Data        | Christmas Bird Count (CBC)                                    |
+|--------------------------|----------------------------------------------|
+| Owner       | Audubon                                                       |
+| Status      | Active                                                        |
+| Years       | 1901 - present                                                |
+| Seasons     | Between Dec 14 - Jan 5, 1 day count                           |
+| Sampling    | All winter bird in a specified area                           |
+| Data Access | Available by contacting data owner for large downloads        |
+| Contact     | [cbcadmin\@audubon.org](mailto:cbcadmin@audubon.org){.email}. |
+
+## Data Collection Protocol {#CBC8.2}
+
+Winter bird are counted on a single calendar day between December 14–January 5. Count volunteers follow specified routes through a designated 15-mile (24-km) diameter circle, counting every bird they see or hear all day. Participants join groups that survey sub-units of the circle during the course of the day using a variety of transportation methods (mostly on foot, in a car, or watching at a feeder, but can include boat, ski, or snowmobile). All birds seen or heard are recorded. Data compilers for each circle collect and submit data to Audubon. 
+
+
+## Avian Data Collected {#CBC8.3}
+
+All birds are counted all day, giving an indication of the total number of birds in the circle that day. CBC data are entered online through a program-specific [webportal](https://netapp.audubon.org/aap/application/cbc). Data can also be submitted using the [eBird mobile app](https://ebird.org/news/ebirding-your-christmas-bird-count-updated). 
+
+## Auxiliary Data Collected {#CBC8.4}
+
+-   Observer information: number of individuals participating 
+
+-   Survey Information: duration of counts, number of party-hours 
+
+## Data Access, Permission, and Format {#CBC8.5}
+
+Christmas Bird Count (CBC) is a National Audubon Society owned and operated citizen science and research program and database. The CBC Database is housed on Audubon-owned servers and is accessible only through the Audubon web portal. These Terms of Use govern your access to and use of the CBC Database. Please read these terms carefully. By accessing the CBC Database, you agree to be bound by these Terms and by Audubon's policy [Privacy Policy](https://www.audubon.org/privacy-policy).
+
+You must credit Audubon and the volunteers who collected the data in all published material containing CBC data, including scientific papers, articles, adverts, talks and slides with the following: "CBC Data are provided by National Audubon Society and through the generous efforts of Bird Studies Canada and countless volunteers across the Western Hemisphere." Where possible, you should provide a link to the Audubon and CBC websites and, when using CBC data collected in Canada, Birds Canada, Audubon's Canadian CBC partner.
+
+## Data Use Considerations {#CBC8.6}
+
+CBC is a land-based survey, and therefore the focus of data collection is not on coastal birds or seabirds. 
+
+## Data Processing {#CBC8.7}
+
+.
