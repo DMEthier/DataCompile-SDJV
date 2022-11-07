@@ -4,9 +4,9 @@ output:
   html_document: default
 ---
 
-# Canadian Pacific Vessle Survey (CPVS) {#CPVS4}
+# CPVS {#CPVS4}
 
-**Place hold**
+**Place holder for the Canadian Pacific Vessel Survey**
 
 
 
@@ -15,7 +15,7 @@ output:
 ## Quick Data Overview {#CPVS4.1}
 
 | Data        | Canadian Pacific Vessel Survey (CPVS)                                                       |
-|-------------|---------------------------------------------------------------------------------------------|
+|-----------------|-------------------------------------------------------|
 | Owner       | Canada Wildlife Services                                                                    |
 | Status      | Active                                                                                      |
 | Years       |                                                                                             |
@@ -34,6 +34,5 @@ output:
 
 ## Data Use Considerations {#CPVS4.6}
 
-## Data Processing {#CPVS4.7}
 
 .

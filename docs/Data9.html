@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Data Processing | Transboundary avain data for the Salish Sea</title>
+  <meta name="description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Data Processing | Transboundary avain data for the Salish Sea" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
+  <meta property="og:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="github-repo" content="DMEthier/DataCompile-SDJV" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Data Processing | Transboundary avain data for the Salish Sea" />
+  
+  <meta name="twitter:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
+  <meta name="twitter:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
+
+<meta name="author" content="Author: Danielle Ethier" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="CBC8.html"/>
+<link rel="next" href="Dev10.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="mystyles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Transboundary avain data for the Salish Sea: An R users guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome data users!</a></li>
+<li class="chapter" data-level="1" data-path="Intro1.html"><a href="Intro1.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="Intro1.html"><a href="Intro1.html#Intro1.1"><i class="fa fa-check"></i><b>1.1</b> Project Summary</a></li>
+<li class="chapter" data-level="1.2" data-path="Intro1.html"><a href="Intro1.html#Intro1.2"><i class="fa fa-check"></i><b>1.2</b> Goals</a></li>
+<li class="chapter" data-level="1.3" data-path="Intro1.html"><a href="Intro1.html#guide-structure"><i class="fa fa-check"></i><b>1.3</b> Guide Structure</a></li>
+<li class="chapter" data-level="1.4" data-path="Intro1.html"><a href="Intro1.html#Intro1.3"><i class="fa fa-check"></i><b>1.4</b> Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="BCCWS2.html"><a href="BCCWS2.html"><i class="fa fa-check"></i><b>2</b> BCCWS</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.1"><i class="fa fa-check"></i><b>2.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="2.2" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.2"><i class="fa fa-check"></i><b>2.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="2.3" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.3"><i class="fa fa-check"></i><b>2.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="2.4" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.4"><i class="fa fa-check"></i><b>2.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="2.5" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.5"><i class="fa fa-check"></i><b>2.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="2.6" data-path="BCCWS2.html"><a href="BCCWS2.html#BCCWS2.6"><i class="fa fa-check"></i><b>2.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="BCMA3.html"><a href="BCMA3.html"><i class="fa fa-check"></i><b>3</b> BCMA</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.1"><i class="fa fa-check"></i><b>3.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="3.2" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.2"><i class="fa fa-check"></i><b>3.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="3.3" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.3"><i class="fa fa-check"></i><b>3.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="3.4" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.4"><i class="fa fa-check"></i><b>3.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="3.5" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.5"><i class="fa fa-check"></i><b>3.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="3.6" data-path="BCMA3.html"><a href="BCMA3.html#BCMA3.6"><i class="fa fa-check"></i><b>3.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="CPVS4.html"><a href="CPVS4.html"><i class="fa fa-check"></i><b>4</b> CPVS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.1"><i class="fa fa-check"></i><b>4.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="4.2" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.2"><i class="fa fa-check"></i><b>4.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="4.3" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.3"><i class="fa fa-check"></i><b>4.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="4.4" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.4"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="4.5" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.5"><i class="fa fa-check"></i><b>4.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="4.6" data-path="CPVS4.html"><a href="CPVS4.html#CPVS4.6"><i class="fa fa-check"></i><b>4.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="PSSS5.html"><a href="PSSS5.html"><i class="fa fa-check"></i><b>5</b> PSSS</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.1"><i class="fa fa-check"></i><b>5.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="5.2" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.2"><i class="fa fa-check"></i><b>5.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="5.3" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.3"><i class="fa fa-check"></i><b>5.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="5.4" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.4"><i class="fa fa-check"></i><b>5.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="5.5" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.5"><i class="fa fa-check"></i><b>5.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="5.6" data-path="PSSS5.html"><a href="PSSS5.html#PSSS5.6"><i class="fa fa-check"></i><b>5.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="MASS6.html"><a href="MASS6.html"><i class="fa fa-check"></i><b>6</b> MASS</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="MASS6.html"><a href="MASS6.html#MASS6.1"><i class="fa fa-check"></i><b>6.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="MASS6.html"><a href="MASS6.html#MASS6.2"><i class="fa fa-check"></i><b>6.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="6.3" data-path="MASS6.html"><a href="MASS6.html#MASS6.3"><i class="fa fa-check"></i><b>6.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="6.4" data-path="MASS6.html"><a href="MASS6.html#MASS6.4"><i class="fa fa-check"></i><b>6.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="6.5" data-path="MASS6.html"><a href="MASS6.html#MASS6.5"><i class="fa fa-check"></i><b>6.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="6.6" data-path="MASS6.html"><a href="MASS6.html#MASS6.6"><i class="fa fa-check"></i><b>6.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="eBird7.html"><a href="eBird7.html"><i class="fa fa-check"></i><b>7</b> eBird</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="eBird7.html"><a href="eBird7.html#eBird7.1"><i class="fa fa-check"></i><b>7.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="7.2" data-path="eBird7.html"><a href="eBird7.html#eBird7.2"><i class="fa fa-check"></i><b>7.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="7.3" data-path="eBird7.html"><a href="eBird7.html#eBird7.3"><i class="fa fa-check"></i><b>7.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="7.4" data-path="eBird7.html"><a href="eBird7.html#eBird7.4"><i class="fa fa-check"></i><b>7.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="7.5" data-path="eBird7.html"><a href="eBird7.html#eBird7.5"><i class="fa fa-check"></i><b>7.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="7.6" data-path="eBird7.html"><a href="eBird7.html#eBird7.6"><i class="fa fa-check"></i><b>7.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="CBC8.html"><a href="CBC8.html"><i class="fa fa-check"></i><b>8</b> CBC</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="CBC8.html"><a href="CBC8.html#CBC8.1"><i class="fa fa-check"></i><b>8.1</b> Quick Data Overview</a></li>
+<li class="chapter" data-level="8.2" data-path="CBC8.html"><a href="CBC8.html#CBC8.2"><i class="fa fa-check"></i><b>8.2</b> Data Collection Protocol</a></li>
+<li class="chapter" data-level="8.3" data-path="CBC8.html"><a href="CBC8.html#CBC8.3"><i class="fa fa-check"></i><b>8.3</b> Avian Data Collected</a></li>
+<li class="chapter" data-level="8.4" data-path="CBC8.html"><a href="CBC8.html#CBC8.4"><i class="fa fa-check"></i><b>8.4</b> Auxiliary Data Collected</a></li>
+<li class="chapter" data-level="8.5" data-path="CBC8.html"><a href="CBC8.html#CBC8.5"><i class="fa fa-check"></i><b>8.5</b> Data Access, Permission, and Format</a></li>
+<li class="chapter" data-level="8.6" data-path="CBC8.html"><a href="CBC8.html#CBC8.6"><i class="fa fa-check"></i><b>8.6</b> Data Use Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="Data9.html"><a href="Data9.html"><i class="fa fa-check"></i><b>9</b> Data Processing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="Data9.html"><a href="Data9.html#Data9.1"><i class="fa fa-check"></i><b>9.1</b> Data Schema</a></li>
+<li class="chapter" data-level="9.2" data-path="Data9.html"><a href="Data9.html#species-codes"><i class="fa fa-check"></i><b>9.2</b> Species Codes</a></li>
+<li class="chapter" data-level="9.3" data-path="Data9.html"><a href="Data9.html#Data9.2"><i class="fa fa-check"></i><b>9.3</b> Data Manipulation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="Data9.html"><a href="Data9.html#bccws-bcma"><i class="fa fa-check"></i><b>9.3.1</b> BCCWS &amp; BCMA</a></li>
+<li class="chapter" data-level="9.3.2" data-path="Data9.html"><a href="Data9.html#cpvs"><i class="fa fa-check"></i><b>9.3.2</b> CPVS</a></li>
+<li class="chapter" data-level="9.3.3" data-path="Data9.html"><a href="Data9.html#psss"><i class="fa fa-check"></i><b>9.3.3</b> PSSS</a></li>
+<li class="chapter" data-level="9.3.4" data-path="Data9.html"><a href="Data9.html#mass"><i class="fa fa-check"></i><b>9.3.4</b> MASS</a></li>
+<li class="chapter" data-level="9.3.5" data-path="Data9.html"><a href="Data9.html#ebird"><i class="fa fa-check"></i><b>9.3.5</b> eBird</a></li>
+<li class="chapter" data-level="9.3.6" data-path="Data9.html"><a href="Data9.html#cbc"><i class="fa fa-check"></i><b>9.3.6</b> CBC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="Data9.html"><a href="Data9.html#zero-filling-dataframe"><i class="fa fa-check"></i><b>9.4</b> Zero-filling dataframe</a></li>
+<li class="chapter" data-level="9.5" data-path="Data9.html"><a href="Data9.html#remove-rare-or-non-representative-species"><i class="fa fa-check"></i><b>9.5</b> Remove rare or non-representative species</a></li>
+<li class="chapter" data-level="9.6" data-path="Data9.html"><a href="Data9.html#assigning-survey-period"><i class="fa fa-check"></i><b>9.6</b> Assigning survey period</a></li>
+<li class="chapter" data-level="9.7" data-path="Data9.html"><a href="Data9.html#spatial-and-temporal-consideration"><i class="fa fa-check"></i><b>9.7</b> Spatial and temporal consideration</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="Dev10.html"><a href="Dev10.html"><i class="fa fa-check"></i><b>10</b> Model Development</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transboundary avain data for the Salish Sea</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="Data9" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Data Processing<a href="Data9.html#Data9" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<blockquote>
+<p><strong>Before continuing with this chapter, please review the content in Chapters 2-8. It is the responsibility of the data user to understand the various data collection protocols, stipulations around data access, and data use considerations.</strong></p>
+</blockquote>
+<p>Start by loading the packages needed for this chapter</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="Data9.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;remotes&quot;)</span></span>
+<span id="cb1-2"><a href="Data9.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github(&quot;BirdsCanada/naturecounts&quot;)</span></span>
+<span id="cb1-3"><a href="Data9.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="Data9.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naturecounts)</span>
+<span id="cb1-5"><a href="Data9.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-6"><a href="Data9.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-7"><a href="Data9.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(auk)</span></code></pre></div>
+<div id="Data9.1" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Data Schema<a href="Data9.html#Data9.1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The purpose of this chapter is to provide the data user R script which will enable the compilation of disparate avian data sources into a standardized format (also known as a schema). The format selected for the purposes of this project was the Bird Monitoring Data Exchange (<a href="https://naturecounts.ca/nc/default/nc_bmde.jsp">BMDE</a>), which is the core standard of <a href="https://naturecounts.ca/nc/default/main.jsp">NatureCounts</a> a node of the <a href="https://avianknowledge.net/">Avian Knowledge Network</a>. The BMDE includes 169 core fields for capturing all metric and descriptors associated with bird observations. You can use the naturecounts R package and the following scripts to view the BMDE core fields. A copy of the BMDE table is also in the <code>BMDE</code> folder of this directory, which provides additional descriptions of the core columns.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="Data9.html#cb2-1" aria-hidden="true" tabindex="-1"></a>BMDE<span class="ot">&lt;-</span><span class="fu">meta_bmde_fields</span>(<span class="st">&quot;core&quot;</span>)</span></code></pre></div>
+<p>Any data owners wishing to contribute their data to the NatureCounts database should complete the metadata form, also found in the BMDE folder, and reach out to Catherine Jardin: <a href="mailto:cjardine@birdscanada.org" class="email">cjardine@birdscanada.org</a>, Birds Canada’s Data Analyst.</p>
+</div>
+<div id="species-codes" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Species Codes<a href="Data9.html#species-codes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A crucial steps to combining datasets is the inclusion of a common species code. Let’s compile the complete species list now for use later in the data compilation. The data tables you will need can be accessed using the naturecounts R package.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="Data9.html#cb3-1" aria-hidden="true" tabindex="-1"></a>sp.code<span class="ot">&lt;-</span><span class="fu">meta_species_codes</span>()</span>
+<span id="cb3-2"><a href="Data9.html#cb3-2" aria-hidden="true" tabindex="-1"></a>sp.code<span class="ot">&lt;-</span>sp.code <span class="sc">%&gt;%</span> <span class="fu">filter</span>(authority<span class="sc">==</span><span class="st">&quot;BSCDATA&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>authority, <span class="sc">-</span>species_id2, <span class="sc">-</span>rank) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb3-3"><a href="Data9.html#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="Data9.html#cb3-4" aria-hidden="true" tabindex="-1"></a>sp.tax<span class="ot">&lt;-</span><span class="fu">meta_species_taxonomy</span>()</span>
+<span id="cb3-5"><a href="Data9.html#cb3-5" aria-hidden="true" tabindex="-1"></a>sp.tax<span class="ot">&lt;-</span>sp.tax <span class="sc">%&gt;%</span> <span class="fu">select</span>(species_id, scientific_name, english_name) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb3-6"><a href="Data9.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="Data9.html#cb3-7" aria-hidden="true" tabindex="-1"></a>sp<span class="ot">&lt;-</span><span class="fu">left_join</span>(sp.code, sp.tax, <span class="at">by=</span><span class="st">&quot;species_id&quot;</span>)</span>
+<span id="cb3-8"><a href="Data9.html#cb3-8" aria-hidden="true" tabindex="-1"></a>sp<span class="ot">&lt;-</span>sp <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(english_name, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="Data9.2" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Data Manipulation<a href="Data9.html#Data9.2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>All data sets need to be manipulated before they are used for an analysis. Anyone that uses big datasets for research will tell you that it often takes more time to manipulate and filter the data than doing the actual statistical analysis. I therefore cannot cover all the possible data manipulations you will do, but will give you some sample script to help compile a complete dataset.</p>
+<p>To accommodate the R scripts in this chapter, data samples for each dataset are provided in the <code>Data</code> folder. These samples are structured in the same format you will receive the raw data from the data owner.</p>
+<div id="bccws-bcma" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> BCCWS &amp; BCMA<a href="Data9.html#bccws-bcma" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We start with two Canadian datasets that are already in the BMDE schema and accessoble through <a href="https://naturecounts.ca/nc/default/main.jsp">NatureCounts</a>. The <a href="BCCWS2.html#BCCWS2">BCCWS</a> and <a href="#id_#BCMA3">BCMA</a> are accessible through the NatureCounts webportal or directly using the naturecounts R package. Since the BCCWS is Access Level 3, you need to make a <a href="https://naturecounts.ca/nc/default/searchquery.jsp">data request</a>. Once your NatureCounts data request is approved you will receive an email confirmation, which will contain your <code>request_id</code>. This number will be used to download your newly acquired dataset into R. The BCMA is open access, Level 5, and therefore a data <code>request_id</code> is not required.</p>
+<p>If you are new to the naturecounts R package, I recommend you start by reviewing the <a href="https://birdscanada.github.io/NatureCounts_IntroTutorial/">Introductory R Tutorial</a>. Those materials will not be repeated here.</p>
+<p>Below is some sample code for downloading the BCCWS and BCMA datasets. You will replace the <code>request_id</code> and <code>username</code> with your own credentials. To retrieve the core BMDE columns, you will want the <code>fields_set</code> to be set to “core” (as below).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="Data9.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naturecounts) </span>
+<span id="cb4-2"><a href="Data9.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="Data9.html#cb4-3" aria-hidden="true" tabindex="-1"></a>BCCWS<span class="ot">&lt;-</span><span class="fu">nc_data_dl</span>(<span class="at">collection=</span><span class="st">&quot;BCCWS&quot;</span>, <span class="at">username =</span> <span class="st">&quot;YOUR USERNAME&quot;</span>, <span class="at">info=</span><span class="st">&quot;MY REASON&quot;</span>, <span class="at">fields_set =</span> <span class="st">&quot;core&quot;</span>)</span>
+<span id="cb4-4"><a href="Data9.html#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="Data9.html#cb4-5" aria-hidden="true" tabindex="-1"></a>BCMA<span class="ot">&lt;-</span><span class="fu">nc_data_dl</span>(<span class="at">collection=</span><span class="st">&quot;BCMA&quot;</span>, <span class="at">username =</span> <span class="st">&quot;YOUR USERNAME&quot;</span>, <span class="at">info=</span><span class="st">&quot;MY REASON&quot;</span>, <span class="at">fields_set =</span> <span class="st">&quot;core&quot;</span>)</span></code></pre></div>
+<p>Working with the sample datasets.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="Data9.html#cb5-1" aria-hidden="true" tabindex="-1"></a>BCCWS<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/BCCWS_sample.csv&quot;</span>) </span>
+<span id="cb5-2"><a href="Data9.html#cb5-2" aria-hidden="true" tabindex="-1"></a>BCMA<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/BCMA_sample.csv&quot;</span>)  </span>
+<span id="cb5-3"><a href="Data9.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="Data9.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#select only core BMDE columns, since they seem to vary</span></span>
+<span id="cb5-5"><a href="Data9.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naturecounts)</span>
+<span id="cb5-6"><a href="Data9.html#cb5-6" aria-hidden="true" tabindex="-1"></a>BMDE<span class="ot">&lt;-</span><span class="fu">meta_bmde_fields</span>(<span class="st">&quot;core&quot;</span>)</span>
+<span id="cb5-7"><a href="Data9.html#cb5-7" aria-hidden="true" tabindex="-1"></a>BMDE_col<span class="ot">&lt;-</span><span class="fu">unique</span>(BMDE<span class="sc">$</span>local_name)</span>
+<span id="cb5-8"><a href="Data9.html#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="Data9.html#cb5-9" aria-hidden="true" tabindex="-1"></a>BCCWS<span class="ot">&lt;-</span>BCCWS <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(BMDE_col)) </span>
+<span id="cb5-10"><a href="Data9.html#cb5-10" aria-hidden="true" tabindex="-1"></a>BCMA<span class="ot">&lt;-</span>BCMA <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(BMDE_col)) </span></code></pre></div>
+</div>
+<div id="cpvs" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> CPVS<a href="Data9.html#cpvs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><em>Sample data for this survey has not been received from CWS</em></p>
+</div>
+<div id="psss" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> PSSS<a href="Data9.html#psss" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data will be received in an .xlsx file. Save as a .csv in the <code>Data</code> folder for processing using the following scripts. We will work with the sample dataset here which has the same formatting as the full dataset that you will receive.</p>
+</div>
+<div id="mass" class="section level3 hasAnchor" number="9.3.4">
+<h3><span class="header-section-number">9.3.4</span> MASS<a href="Data9.html#mass" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data will be downloaded as a .gdb file, which is a proprietary format of ESRI meaning the data are not suited for exchange with other applications. My suggestion is that you (or your GIS analyst) import the data layers into ArcGIS, and export tables in .txt. format for import into Excel. Then save as .csv in the <code>Data</code> directory of this project.</p>
+<p>The tables provided will include:</p>
+<ul>
+<li>PSEMP_Survey_Observations (PSEMP_sample.csv): This is a point layer storing processed bird observation data recorded during the winter fixed-wing aerial shorebird surveys. There are two observers in the plane, one on each side facing outward, that record their observations into an audio recording device along with timestamp information and position data from an on-board GPS receiver. This data is later transcribed into tab-delimited files along with a timestamped track-log for the plane (also tab-delimited). This source data are then imported into GIS format and a series of geoprocessing scripts are run which project these points spatially 63 meters at right angles to either side of the plane as well as filtering them (to reduce the chance of double counting) and adding additional attribute information.</li>
+</ul>
+<blockquote>
+<p><strong>You will want to add the X and Y coordinates to this table before you export it from ArcGIS. If you are not familiar with how to do this, you will find some useful instructions <a href="https://support.esri.com/en/technical-article/000002217">here</a>.</strong></p>
+</blockquote>
+<ul>
+<li><p>PSEMP_SurveyRoutes: This is a polyline GIS data layer representing the flight path of the fixed wing plane recorded (initially as a series of point locations) during the winter fixed-wing aerial shorebird surveys.</p></li>
+<li><p>PSEMP_SurveyArea: This is a polygon data layer that represents the area considered to be visually surveyed during the annual winter fixed-wing aerial shorebird surveys. The data consist of rectangular strips that run parallel to the flight path of the plane. The strips are 50 meters wide and are centered 63 meters to either side of the plane. Locations of shorebird observations recorded along the flight path are spatially projected into the center of these strips. The purpose of the strips is to provide an estimate of surveyed area as well as serving as inputs in a process wherein some shorebird observations are removed from areas of survey strip overlap in an effort to minimize the chances of double counting birds.</p></li>
+<li><p>Species (PSEMP_species.csv): This table lists the avian species groups recorded during the winter fixed-wing aerial shorebird surveys. It provides species common and scientific names as well as the species codes (TaxoNameID) necessary to crosswalk these species to group membership (for composite groups analyzed) and to other WDFW databases.</p></li>
+<li><p>PSEMP_Group: This table provides a list of composite groups of species surveys. Some of these groups were included in subsequent statistical analysis; these groups are noted in the “StatsRun” attribute.</p></li>
+<li><p>SpeciesPSEMP_Group: This associative table allows species observations to be crosswalked to composite groups that they participate in.</p></li>
+</ul>
+<p>We will work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="Data9.html#cb6-1" aria-hidden="true" tabindex="-1"></a>MASS<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/PSEMP_sample.csv&quot;</span>)</span>
+<span id="cb6-2"><a href="Data9.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="Data9.html#cb6-3" aria-hidden="true" tabindex="-1"></a>sp.code<span class="ot">&lt;-</span><span class="fu">meta_species_codes</span>()</span>
+<span id="cb6-4"><a href="Data9.html#cb6-4" aria-hidden="true" tabindex="-1"></a>sp.code<span class="ot">&lt;-</span>sp.code <span class="sc">%&gt;%</span> <span class="fu">filter</span>(authority<span class="sc">==</span><span class="st">&quot;BSCDATA&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>authority, <span class="sc">-</span>species_id2, <span class="sc">-</span>rank) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb6-5"><a href="Data9.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="Data9.html#cb6-6" aria-hidden="true" tabindex="-1"></a>sp.tax<span class="ot">&lt;-</span><span class="fu">meta_species_taxonomy</span>()</span>
+<span id="cb6-7"><a href="Data9.html#cb6-7" aria-hidden="true" tabindex="-1"></a>sp.tax<span class="ot">&lt;-</span>sp.tax <span class="sc">%&gt;%</span> <span class="fu">select</span>(species_id, scientific_name, english_name) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span>
+<span id="cb6-8"><a href="Data9.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="Data9.html#cb6-9" aria-hidden="true" tabindex="-1"></a>sp<span class="ot">&lt;-</span><span class="fu">left_join</span>(sp.code, sp.tax, <span class="at">by=</span><span class="st">&quot;species_id&quot;</span>)</span>
+<span id="cb6-10"><a href="Data9.html#cb6-10" aria-hidden="true" tabindex="-1"></a>sp<span class="ot">&lt;-</span>sp <span class="sc">%&gt;%</span> <span class="fu">distinct</span>(english_name, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-11"><a href="Data9.html#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="Data9.html#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#load the species table</span></span>
+<span id="cb6-13"><a href="Data9.html#cb6-13" aria-hidden="true" tabindex="-1"></a>sp_Mass<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/PSEMP_species.csv&quot;</span>)</span>
+<span id="cb6-14"><a href="Data9.html#cb6-14" aria-hidden="true" tabindex="-1"></a>sp_Mass<span class="ot">&lt;-</span>sp_Mass <span class="sc">%&gt;%</span> <span class="fu">select</span>(TaxoNameID, PSEMP_CommonName, PSEMP_SpeciesCode, PSEMP_SciName1) <span class="sc">%&gt;%</span> <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(TaxoNameID<span class="sc">&gt;=</span><span class="dv">1</span>)</span>
+<span id="cb6-15"><a href="Data9.html#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="Data9.html#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#some species codes need changed in order to properly link this with the sp table from the NatureCounts database. </span></span>
+<span id="cb6-17"><a href="Data9.html#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="Data9.html#cb6-18" aria-hidden="true" tabindex="-1"></a>sp_Mass<span class="ot">&lt;-</span>sp_Mass <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Cormorant, Brandt&#39;s&quot;</span>, <span class="st">&quot;BRAC&quot;</span>, PSEMP_SpeciesCode)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-19"><a href="Data9.html#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Plover, American golden&quot;</span>, <span class="st">&quot;AMGP&quot;</span>, PSEMP_SpeciesCode)) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Duck, harlequin&quot;</span>, <span class="st">&quot;HARD&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Gull, herring&quot;</span>, <span class="st">&quot;HERG&quot;</span>, PSEMP_SpeciesCode)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Gull, Heermann&#39;s&quot;</span>, <span class="st">&quot;HEEG&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Shoveler, northern&quot;</span>, <span class="st">&quot;NSHO&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Crow, northwestern&quot;</span>, <span class="st">&quot;NOCR&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Hawk, red-tailed&quot;</span>, <span class="st">&quot;HAHA&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Gull, Thayer&#39;s&quot;</span>, <span class="st">&quot;ICGU&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Swan, trumpeter&quot;</span>, <span class="st">&quot;TRUS&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Goose, white-fronted&quot;</span>, <span class="st">&quot;GWFG&quot;</span>, PSEMP_SpeciesCode))  <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">PSEMP_SpeciesCode=</span><span class="fu">ifelse</span>(PSEMP_CommonName<span class="sc">==</span><span class="st">&quot;Pelican, American white&quot;</span>, <span class="st">&quot;AWPE&quot;</span>, PSEMP_SpeciesCode)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-20"><a href="Data9.html#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(PSEMP_SpeciesCode<span class="sc">!=</span><span class="st">&quot;HAPO&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-21"><a href="Data9.html#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(<span class="sc">-</span>TaxoNameID, <span class="sc">-</span>PSEMP_CommonName, <span class="sc">-</span>PSEMP_SciName1)</span>
+<span id="cb6-22"><a href="Data9.html#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="Data9.html#cb6-23" aria-hidden="true" tabindex="-1"></a>sp_Mass<span class="ot">&lt;-</span><span class="fu">merge</span>(sp_Mass, sp, <span class="at">by.x=</span><span class="st">&quot;PSEMP_SpeciesCode&quot;</span>, <span class="at">by.y=</span><span class="st">&quot;species_code&quot;</span>, <span class="at">all.x=</span><span class="cn">TRUE</span>)</span>
+<span id="cb6-24"><a href="Data9.html#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="Data9.html#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="Data9.html#cb6-26" aria-hidden="true" tabindex="-1"></a>area_Mass<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/PSEMP_SurveyArea.csv&quot;</span>)</span>
+<span id="cb6-27"><a href="Data9.html#cb6-27" aria-hidden="true" tabindex="-1"></a>route_Mass<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;Data/PSEMP_SurveyRoutes.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="ebird" class="section level3 hasAnchor" number="9.3.5">
+<h3><span class="header-section-number">9.3.5</span> eBird<a href="Data9.html#ebird" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You will make an online request for eBird data scoped to the geographic region and temporal scale of choice. In this instance, I would request all the data for Washington and British Columbia from 2002-2022. Each region needs to be requested separately. Once you have received the raw data files, you can save them in the <code>Data</code> directory of this folder. They will be BIG! Due to the large size of this dataset, it must be filtered to a smaller subset of desired observations before reading into R. This filtering is most efficiently done using <a href="https://cornelllabofornithology.github.io/auk/">auk: eBird Data Extraction and Processing with AWK</a>. a Unix utility and programming language for processing column formatted text data. This package acts as a front end for AWK, allowing users to filter eBird data before import into R.</p>
+<p>There will be several files in the .zip folder along with your raw data, including: BCRCodes, IBACodes, USFWSCodes, recommend citation, terms of use, and the metadata file.</p>
+<p>We will once again work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="Data9.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#start by setting the working directory of the abd files to the data directory of this project, where your datafiles should be saved</span></span>
+<span id="cb7-2"><a href="Data9.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="Data9.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#getwd() # your curent working directory</span></span>
+<span id="cb7-4"><a href="Data9.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#auk_set_ebd_path(&quot;C:/Users/dethier/Documents/ethier-scripts/DataCompile-SDJV/Data/&quot;, overwrite=FALSE)</span></span>
+<span id="cb7-5"><a href="Data9.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="Data9.html#cb7-6" aria-hidden="true" tabindex="-1"></a>WA_in<span class="ot">&lt;-</span><span class="st">&quot;Data/eBirdWA_sample.txt&quot;</span></span>
+<span id="cb7-7"><a href="Data9.html#cb7-7" aria-hidden="true" tabindex="-1"></a>WA_out<span class="ot">&lt;-</span><span class="st">&quot;Data/WA_filter.txt&quot;</span></span>
+<span id="cb7-8"><a href="Data9.html#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="Data9.html#cb7-9" aria-hidden="true" tabindex="-1"></a>ebird_WA<span class="ot">&lt;-</span>WA_in <span class="sc">%&gt;%</span> <span class="fu">auk_ebd</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-10"><a href="Data9.html#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#define filters</span></span>
+<span id="cb7-11"><a href="Data9.html#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_bcr</span>(<span class="at">bcr=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-12"><a href="Data9.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_protocol</span>(<span class="st">&quot;eBird Pelagic Protocol&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-13"><a href="Data9.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_filter</span>(<span class="at">file=</span>WA_out) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-14"><a href="Data9.html#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_ebd</span>()</span>
+<span id="cb7-15"><a href="Data9.html#cb7-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-16"><a href="Data9.html#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="Data9.html#cb7-17" aria-hidden="true" tabindex="-1"></a>BC_in<span class="ot">&lt;-</span><span class="st">&quot;Data/eBirdBC_sample.txt&quot;</span></span>
+<span id="cb7-18"><a href="Data9.html#cb7-18" aria-hidden="true" tabindex="-1"></a>BC_out<span class="ot">&lt;-</span><span class="st">&quot;Data/BC_filter.txt&quot;</span></span>
+<span id="cb7-19"><a href="Data9.html#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="Data9.html#cb7-20" aria-hidden="true" tabindex="-1"></a>ebird_BC<span class="ot">&lt;-</span>BC_in <span class="sc">%&gt;%</span> <span class="fu">auk_ebd</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-21"><a href="Data9.html#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="co">#define filters</span></span>
+<span id="cb7-22"><a href="Data9.html#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_bcr</span>(<span class="at">bcr=</span><span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-23"><a href="Data9.html#cb7-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_protocol</span>(<span class="st">&quot;eBird Pelagic Protocol&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-24"><a href="Data9.html#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_filter</span>(<span class="at">file=</span>BC_out) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-25"><a href="Data9.html#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auk_complete</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-26"><a href="Data9.html#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_ebd</span>()</span>
+<span id="cb7-27"><a href="Data9.html#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="Data9.html#cb7-28" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="ot">&lt;-</span><span class="fu">rbind</span>(ebird_BC, ebird_WA)</span>
+<span id="cb7-29"><a href="Data9.html#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="Data9.html#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#separate data and time columns</span></span>
+<span id="cb7-31"><a href="Data9.html#cb7-31" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="ot">&lt;-</span>ebird_data <span class="sc">%&gt;%</span> <span class="fu">separate</span>(observation_date, <span class="at">into=</span><span class="fu">c</span>(<span class="st">&quot;YearCollected&quot;</span>, <span class="st">&quot;MonthCollected&quot;</span>, <span class="st">&quot;DayCollected&quot;</span>), <span class="at">sep=</span><span class="st">&quot;-&quot;</span>) </span>
+<span id="cb7-32"><a href="Data9.html#cb7-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-33"><a href="Data9.html#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#rename columns</span></span>
+<span id="cb7-34"><a href="Data9.html#cb7-34" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="ot">&lt;-</span>ebird_data <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">rename</span> (<span class="at">GlobalUniqueIdentifier=</span>global_unique_identifier, </span>
+<span id="cb7-35"><a href="Data9.html#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="at">DateLastModified=</span>last_edited_date,  </span>
+<span id="cb7-36"><a href="Data9.html#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="at">TaxonConceptID=</span>taxon_concept_id, </span>
+<span id="cb7-37"><a href="Data9.html#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="at">CommonName=</span>common_name,     </span>
+<span id="cb7-38"><a href="Data9.html#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="at">ScientificName=</span>scientific_name, </span>
+<span id="cb7-39"><a href="Data9.html#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="at">ObservationCount=</span>observation_count, </span>
+<span id="cb7-40"><a href="Data9.html#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="at">Country=</span>country_code, </span>
+<span id="cb7-41"><a href="Data9.html#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="at">StateProvince=</span>state, </span>
+<span id="cb7-42"><a href="Data9.html#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="at">SurveyAreaIdentifier=</span>locality_id,</span>
+<span id="cb7-43"><a href="Data9.html#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="at">TimeCollected=</span>time_observations_started, </span>
+<span id="cb7-44"><a href="Data9.html#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="at">CollectorNumber=</span>observer_id, </span>
+<span id="cb7-45"><a href="Data9.html#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="at">SamplingEventIdentifier=</span>sampling_event_identifier, </span>
+<span id="cb7-46"><a href="Data9.html#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="at">ProtocolType=</span>protocol_type, </span>
+<span id="cb7-47"><a href="Data9.html#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="at">ProtocolCode=</span>protocol_code, </span>
+<span id="cb7-48"><a href="Data9.html#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="at">ProjectCode=</span>project_code, </span>
+<span id="cb7-49"><a href="Data9.html#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="at">DistanceFromStart=</span>effort_distance_km,</span>
+<span id="cb7-50"><a href="Data9.html#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="at">SurveyAreaSize=</span>effort_area_ha,</span>
+<span id="cb7-51"><a href="Data9.html#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="at">NumberOfObservers=</span>number_observers,</span>
+<span id="cb7-52"><a href="Data9.html#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="at">AllIndividualsReported=</span>all_species_reported,</span>
+<span id="cb7-53"><a href="Data9.html#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="at">Remarks=</span>trip_comments,</span>
+<span id="cb7-54"><a href="Data9.html#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="at">Remarks2=</span>species_comments, </span>
+<span id="cb7-55"><a href="Data9.html#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="at">DecimalLatitude=</span> latitude,</span>
+<span id="cb7-56"><a href="Data9.html#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="at">DecimalLongitude=</span>longitude,</span>
+<span id="cb7-57"><a href="Data9.html#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="at">Locality=</span>locality</span>
+<span id="cb7-58"><a href="Data9.html#cb7-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-59"><a href="Data9.html#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="Data9.html#cb7-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-61"><a href="Data9.html#cb7-61" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="sc">$</span>BasisOfRecord <span class="ot">&lt;-</span> <span class="st">&quot;Observation&quot;</span></span>
+<span id="cb7-62"><a href="Data9.html#cb7-62" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="sc">$</span>CollectionCode <span class="ot">&lt;-</span> <span class="st">&quot;EBIRD&quot;</span></span>
+<span id="cb7-63"><a href="Data9.html#cb7-63" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="sc">$</span>Continent <span class="ot">&lt;-</span><span class="st">&quot;North America&quot;</span></span>
+<span id="cb7-64"><a href="Data9.html#cb7-64" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="sc">$</span>ProtocolURL<span class="ot">&lt;-</span> <span class="st">&quot;https://support.ebird.org/en/support/solutions/articles/48000950859-guide-to-ebird-protocols&quot;</span></span>
+<span id="cb7-65"><a href="Data9.html#cb7-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-66"><a href="Data9.html#cb7-66" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="ot">&lt;-</span>ebird_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">DurationInHours =</span> duration_minutes<span class="sc">/</span><span class="dv">60</span>)</span>
+<span id="cb7-67"><a href="Data9.html#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="Data9.html#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co">#Now that we have specified all the data columns we can, we will create the BMDE standardized data table. </span></span>
+<span id="cb7-69"><a href="Data9.html#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-70"><a href="Data9.html#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="co">#Identify the missing columns of data</span></span>
+<span id="cb7-71"><a href="Data9.html#cb7-71" aria-hidden="true" tabindex="-1"></a>BMDE_col<span class="ot">&lt;-</span><span class="fu">unique</span>(BMDE<span class="sc">$</span>local_name)</span>
+<span id="cb7-72"><a href="Data9.html#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-73"><a href="Data9.html#cb7-73" aria-hidden="true" tabindex="-1"></a>missing<span class="ot">&lt;-</span><span class="fu">setdiff</span>(BMDE_col, <span class="fu">names</span>(ebird_data))</span>
+<span id="cb7-74"><a href="Data9.html#cb7-74" aria-hidden="true" tabindex="-1"></a>ebird_data[missing]<span class="ot">&lt;-</span><span class="st">&quot; &quot;</span></span>
+<span id="cb7-75"><a href="Data9.html#cb7-75" aria-hidden="true" tabindex="-1"></a>ebird_data<span class="ot">&lt;-</span>ebird_data[BMDE_col]</span></code></pre></div>
+</div>
+<div id="cbc" class="section level3 hasAnchor" number="9.3.6">
+<h3><span class="header-section-number">9.3.6</span> CBC<a href="Data9.html#cbc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To access CBC data you must contact Audubon at <a href="mailto:cbcadmin@audubon.org" class="email">cbcadmin@audubon.org</a>. A online form will be send to you to complete. When completing this form, scope the data to the geographic and temporal scale you require. You will also be asked if you want the auxiliary data included, such as effor and weather. Select yes to all options so that you have a complete dataset to work with.</p>
+<p>You will receive the raw data compressed in a Box folder, which you can download and save to the <code>Data</code> directory associated with this project. You will also be given links to download the “cbc_field_definitions_2013.pdf”, which details the information in each data column, and the “CBCEditorialCodes.pdf”, which defines the modifiers used when recording species. Both of these files are saved in the <code>Data</code> directory of this project.</p>
+<p>The tables provided will include:</p>
+<ul>
+<li><p>Circle_Species_Report: the raw counts of each species seen in each circle in each year</p></li>
+<li><p>Effort_Many_Types: for each count circle in each year, this table details the mode of data collection (e.g., car, foot), distance traveled, and the number of hours the survey took.</p></li>
+<li><p>Effort_Summary_Report: for each count in each year, this table details additional types of data collection effort, including field versus feeder counters, min and max parties, feeder hours, noctural hours, and nocutural distance. These data are often used for effort correction.</p></li>
+<li><p>Weather_Report: for each count circle in each year, this table details all th weather covarites collectd during the survey.</p></li>
+<li><p>Count_History_Report: this table detail when each count circle was run and in which years. This can be used to zero-fill the data martix.</p></li>
+</ul>
+<p>We will once again work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.</p>
+</div>
+</div>
+<div id="zero-filling-dataframe" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Zero-filling dataframe<a href="Data9.html#zero-filling-dataframe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="remove-rare-or-non-representative-species" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Remove rare or non-representative species<a href="Data9.html#remove-rare-or-non-representative-species" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="assigning-survey-period" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Assigning survey period<a href="Data9.html#assigning-survey-period" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Winter surveys more than often straddle two calendar years (e.g., start in October 2021 and end in April 2022). When doing an analysis you are often interested in ‘year’ as a covarite or random effect. We will call this data column survey <code>Period</code>.</p>
+</div>
+<div id="spatial-and-temporal-consideration" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Spatial and temporal consideration<a href="Data9.html#spatial-and-temporal-consideration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First spatially and temporally bound the dataset.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="CBC8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Dev10.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

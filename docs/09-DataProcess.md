@@ -1,0 +1,274 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+# Data Processing {#Data9}
+
+
+
+> **Before continuing with this chapter, please review the content in Chapters 2-8. It is the responsibility of the data user to understand the various data collection protocols, stipulations around data access, and data use considerations.**
+
+Start by loading the packages needed for this chapter
+
+
+```r
+#install.packages("remotes")
+#remotes::install_github("BirdsCanada/naturecounts")
+
+library(naturecounts)
+library(tidyverse)
+library(stringr)
+library(auk)
+```
+
+## Data Schema {#Data9.1}
+
+The purpose of this chapter is to provide the data user R script which will enable the compilation of disparate avian data sources into a standardized format (also known as a schema). The format selected for the purposes of this project was the Bird Monitoring Data Exchange ([BMDE](https://naturecounts.ca/nc/default/nc_bmde.jsp)), which is the core standard of [NatureCounts](https://naturecounts.ca/nc/default/main.jsp) a node of the [Avian Knowledge Network](https://avianknowledge.net/). The BMDE includes 169 core fields for capturing all metric and descriptors associated with bird observations. You can use the naturecounts R package and the following scripts to view the BMDE core fields. A copy of the BMDE table is also in the `BMDE` folder of this directory, which provides additional descriptions of the core columns.
+
+
+```r
+BMDE<-meta_bmde_fields("core")
+```
+
+Any data owners wishing to contribute their data to the NatureCounts database should complete the metadata form, also found in the BMDE folder, and reach out to Catherine Jardin: [cjardine\@birdscanada.org](mailto:cjardine@birdscanada.org){.email}, Birds Canada's Data Analyst.
+
+## Species Codes
+
+A crucial steps to combining datasets is the inclusion of a common species code. Let's compile the complete species list now for use later in the data compilation. The data tables you will need can be accessed using the naturecounts R package.
+
+
+```r
+sp.code<-meta_species_codes()
+sp.code<-sp.code %>% filter(authority=="BSCDATA") %>% select(-authority, -species_id2, -rank) %>% distinct()
+
+sp.tax<-meta_species_taxonomy()
+sp.tax<-sp.tax %>% select(species_id, scientific_name, english_name) %>% distinct()
+
+sp<-left_join(sp.code, sp.tax, by="species_id")
+sp<-sp %>% distinct(english_name, .keep_all = TRUE)
+```
+
+## Data Manipulation {#Data9.2}
+
+All data sets need to be manipulated before they are used for an analysis. Anyone that uses big datasets for research will tell you that it often takes more time to manipulate and filter the data than doing the actual statistical analysis. I therefore cannot cover all the possible data manipulations you will do, but will give you some sample script to help compile a complete dataset.
+
+To accommodate the R scripts in this chapter, data samples for each dataset are provided in the `Data` folder. These samples are structured in the same format you will receive the raw data from the data owner.
+
+### BCCWS & BCMA
+
+We start with two Canadian datasets that are already in the BMDE schema and accessoble through [NatureCounts](https://naturecounts.ca/nc/default/main.jsp). The [BCCWS](#BCCWS2) and [BCMA](##BCMA3) are accessible through the NatureCounts webportal or directly using the naturecounts R package. Since the BCCWS is Access Level 3, you need to make a [data request](https://naturecounts.ca/nc/default/searchquery.jsp). Once your NatureCounts data request is approved you will receive an email confirmation, which will contain your `request_id`. This number will be used to download your newly acquired dataset into R. The BCMA is open access, Level 5, and therefore a data `request_id` is not required.
+
+If you are new to the naturecounts R package, I recommend you start by reviewing the [Introductory R Tutorial](https://birdscanada.github.io/NatureCounts_IntroTutorial/). Those materials will not be repeated here.
+
+Below is some sample code for downloading the BCCWS and BCMA datasets. You will replace the `request_id` and `username` with your own credentials. To retrieve the core BMDE columns, you will want the `fields_set` to be set to "core" (as below).
+
+
+```r
+library(naturecounts) 
+
+BCCWS<-nc_data_dl(collection="BCCWS", username = "YOUR USERNAME", info="MY REASON", fields_set = "core")
+
+BCMA<-nc_data_dl(collection="BCMA", username = "YOUR USERNAME", info="MY REASON", fields_set = "core")
+```
+
+Working with the sample datasets.
+
+
+```r
+BCCWS<-read.csv("Data/BCCWS_sample.csv") 
+BCMA<-read.csv("Data/BCMA_sample.csv")  
+
+#select only core BMDE columns, since they seem to vary
+library(naturecounts)
+BMDE<-meta_bmde_fields("core")
+BMDE_col<-unique(BMDE$local_name)
+
+BCCWS<-BCCWS %>% select(all_of(BMDE_col)) 
+BCMA<-BCMA %>% select(all_of(BMDE_col)) 
+```
+
+### CPVS
+
+*Sample data for this survey has not been received from CWS*
+
+### PSSS
+
+The data will be received in an .xlsx file. Save as a .csv in the `Data` folder for processing using the following scripts. We will work with the sample dataset here which has the same formatting as the full dataset that you will receive.
+
+
+
+### MASS
+
+The data will be downloaded as a .gdb file, which is a proprietary format of ESRI meaning the data are not suited for exchange with other applications. My suggestion is that you (or your GIS analyst) import the data layers into ArcGIS, and export tables in .txt. format for import into Excel. Then save as .csv in the `Data` directory of this project.
+
+The tables provided will include:
+
+-   PSEMP_Survey_Observations (PSEMP_sample.csv): This is a point layer storing processed bird observation data recorded during the winter fixed-wing aerial shorebird surveys. There are two observers in the plane, one on each side facing outward, that record their observations into an audio recording device along with timestamp information and position data from an on-board GPS receiver. This data is later transcribed into tab-delimited files along with a timestamped track-log for the plane (also tab-delimited). This source data are then imported into GIS format and a series of geoprocessing scripts are run which project these points spatially 63 meters at right angles to either side of the plane as well as filtering them (to reduce the chance of double counting) and adding additional attribute information.
+
+> **You will want to add the X and Y coordinates to this table before you export it from ArcGIS. If you are not familiar with how to do this, you will find some useful instructions [here](https://support.esri.com/en/technical-article/000002217).**
+
+-   PSEMP_SurveyRoutes: This is a polyline GIS data layer representing the flight path of the fixed wing plane recorded (initially as a series of point locations) during the winter fixed-wing aerial shorebird surveys.
+
+-   PSEMP_SurveyArea: This is a polygon data layer that represents the area considered to be visually surveyed during the annual winter fixed-wing aerial shorebird surveys. The data consist of rectangular strips that run parallel to the flight path of the plane. The strips are 50 meters wide and are centered 63 meters to either side of the plane. Locations of shorebird observations recorded along the flight path are spatially projected into the center of these strips. The purpose of the strips is to provide an estimate of surveyed area as well as serving as inputs in a process wherein some shorebird observations are removed from areas of survey strip overlap in an effort to minimize the chances of double counting birds.
+
+-   Species (PSEMP_species.csv): This table lists the avian species groups recorded during the winter fixed-wing aerial shorebird surveys. It provides species common and scientific names as well as the species codes (TaxoNameID) necessary to crosswalk these species to group membership (for composite groups analyzed) and to other WDFW databases.
+
+-   PSEMP_Group: This table provides a list of composite groups of species surveys. Some of these groups were included in subsequent statistical analysis; these groups are noted in the "StatsRun" attribute.
+
+-   SpeciesPSEMP_Group: This associative table allows species observations to be crosswalked to composite groups that they participate in.
+
+We will work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.
+
+
+```r
+MASS<-read.csv("Data/PSEMP_sample.csv")
+
+sp.code<-meta_species_codes()
+sp.code<-sp.code %>% filter(authority=="BSCDATA") %>% select(-authority, -species_id2, -rank) %>% distinct()
+
+sp.tax<-meta_species_taxonomy()
+sp.tax<-sp.tax %>% select(species_id, scientific_name, english_name) %>% distinct()
+
+sp<-left_join(sp.code, sp.tax, by="species_id")
+sp<-sp %>% distinct(english_name, .keep_all = TRUE)
+
+#load the species table
+sp_Mass<-read.csv("Data/PSEMP_species.csv")
+sp_Mass<-sp_Mass %>% select(TaxoNameID, PSEMP_CommonName, PSEMP_SpeciesCode, PSEMP_SciName1) %>% distinct() %>% filter(TaxoNameID>=1)
+
+#some species codes need changed in order to properly link this with the sp table from the NatureCounts database. 
+
+sp_Mass<-sp_Mass %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Cormorant, Brandt's", "BRAC", PSEMP_SpeciesCode)) %>% 
+mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Plover, American golden", "AMGP", PSEMP_SpeciesCode)) %>%  mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Duck, harlequin", "HARD", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, herring", "HERG", PSEMP_SpeciesCode)) %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, Heermann's", "HEEG", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Shoveler, northern", "NSHO", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Crow, northwestern", "NOCR", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Hawk, red-tailed", "HAHA", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, Thayer's", "ICGU", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Swan, trumpeter", "TRUS", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Goose, white-fronted", "GWFG", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Pelican, American white", "AWPE", PSEMP_SpeciesCode)) %>% 
+filter(PSEMP_SpeciesCode!="HAPO") %>% 
+select(-TaxoNameID, -PSEMP_CommonName, -PSEMP_SciName1)
+
+sp_Mass<-merge(sp_Mass, sp, by.x="PSEMP_SpeciesCode", by.y="species_code", all.x=TRUE)
+
+
+area_Mass<-read.csv("Data/PSEMP_SurveyArea.csv")
+route_Mass<-read.csv("Data/PSEMP_SurveyRoutes.csv")
+```
+
+### eBird
+
+You will make an online request for eBird data scoped to the geographic region and temporal scale of choice. In this instance, I would request all the data for Washington and British Columbia from 2002-2022. Each region needs to be requested separately. Once you have received the raw data files, you can save them in the `Data` directory of this folder. They will be BIG! Due to the large size of this dataset, it must be filtered to a smaller subset of desired observations before reading into R. This filtering is most efficiently done using [auk: eBird Data Extraction and Processing with AWK](https://cornelllabofornithology.github.io/auk/). a Unix utility and programming language for processing column formatted text data. This package acts as a front end for AWK, allowing users to filter eBird data before import into R.
+
+There will be several files in the .zip folder along with your raw data, including: BCRCodes, IBACodes, USFWSCodes, recommend citation, terms of use, and the metadata file.
+
+We will once again work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.
+
+
+```r
+#start by setting the working directory of the abd files to the data directory of this project, where your datafiles should be saved
+
+#getwd() # your curent working directory
+#auk_set_ebd_path("C:/Users/dethier/Documents/ethier-scripts/DataCompile-SDJV/Data/", overwrite=FALSE)
+
+WA_in<-"Data/eBirdWA_sample.txt"
+WA_out<-"Data/WA_filter.txt"
+
+ebird_WA<-WA_in %>% auk_ebd() %>% 
+  #define filters
+  auk_bcr(bcr=5) %>% 
+  auk_protocol("eBird Pelagic Protocol") %>% 
+  auk_filter(file=WA_out) %>% 
+  read_ebd()
+  
+
+BC_in<-"Data/eBirdBC_sample.txt"
+BC_out<-"Data/BC_filter.txt"
+
+ebird_BC<-BC_in %>% auk_ebd() %>% 
+  #define filters
+  auk_bcr(bcr=5) %>% 
+  auk_protocol("eBird Pelagic Protocol") %>% 
+  auk_filter(file=BC_out) %>% 
+  auk_complete() %>% 
+  read_ebd()
+
+ebird_data<-rbind(ebird_BC, ebird_WA)
+
+#separate data and time columns
+ebird_data<-ebird_data %>% separate(observation_date, into=c("YearCollected", "MonthCollected", "DayCollected"), sep="-") 
+  
+#rename columns
+ebird_data<-ebird_data %>% dplyr::rename (GlobalUniqueIdentifier=global_unique_identifier, 
+DateLastModified=last_edited_date,  
+TaxonConceptID=taxon_concept_id, 
+CommonName=common_name, 	
+ScientificName=scientific_name, 
+ObservationCount=observation_count, 
+Country=country_code, 
+StateProvince=state, 
+SurveyAreaIdentifier=locality_id,
+TimeCollected=time_observations_started, 
+CollectorNumber=observer_id, 
+SamplingEventIdentifier=sampling_event_identifier, 
+ProtocolType=protocol_type, 
+ProtocolCode=protocol_code, 
+ProjectCode=project_code, 
+DistanceFromStart=effort_distance_km,
+SurveyAreaSize=effort_area_ha,
+NumberOfObservers=number_observers,
+AllIndividualsReported=all_species_reported,
+Remarks=trip_comments,
+Remarks2=species_comments, 
+DecimalLatitude= latitude,
+DecimalLongitude=longitude,
+Locality=locality
+)
+
+
+ebird_data$BasisOfRecord <- "Observation"
+ebird_data$CollectionCode <- "EBIRD"
+ebird_data$Continent <-"North America"
+ebird_data$ProtocolURL<- "https://support.ebird.org/en/support/solutions/articles/48000950859-guide-to-ebird-protocols"
+
+ebird_data<-ebird_data %>% mutate(DurationInHours = duration_minutes/60)
+
+#Now that we have specified all the data columns we can, we will create the BMDE standardized data table. 
+
+#Identify the missing columns of data
+BMDE_col<-unique(BMDE$local_name)
+
+missing<-setdiff(BMDE_col, names(ebird_data))
+ebird_data[missing]<-" "
+ebird_data<-ebird_data[BMDE_col]
+```
+
+### CBC
+
+To access CBC data you must contact Audubon at [cbcadmin\@audubon.org](mailto:cbcadmin@audubon.org){.email}. A online form will be send to you to complete. When completing this form, scope the data to the geographic and temporal scale you require. You will also be asked if you want the auxiliary data included, such as effor and weather. Select yes to all options so that you have a complete dataset to work with.
+
+You will receive the raw data compressed in a Box folder, which you can download and save to the `Data` directory associated with this project. You will also be given links to download the "cbc_field_definitions_2013.pdf", which details the information in each data column, and the "CBCEditorialCodes.pdf", which defines the modifiers used when recording species. Both of these files are saved in the `Data` directory of this project.
+
+The tables provided will include:
+
+-   Circle_Species_Report: the raw counts of each species seen in each circle in each year
+
+-   Effort_Many_Types: for each count circle in each year, this table details the mode of data collection (e.g., car, foot), distance traveled, and the number of hours the survey took.
+
+-   Effort_Summary_Report: for each count in each year, this table details additional types of data collection effort, including field versus feeder counters, min and max parties, feeder hours, noctural hours, and nocutural distance. These data are often used for effort correction.
+
+-   Weather_Report: for each count circle in each year, this table details all th weather covarites collectd during the survey.
+
+-   Count_History_Report: this table detail when each count circle was run and in which years. This can be used to zero-fill the data martix.
+
+We will once again work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.
+
+## Zero-filling dataframe
+
+## Remove rare or non-representative species
+
+## Assigning survey period
+
+Winter surveys more than often straddle two calendar years (e.g., start in October 2021 and end in April 2022). When doing an analysis you are often interested in 'year' as a covarite or random effect. We will call this data column survey `Period`.
+
+## Spatial and temporal consideration
+
+First spatially and temporally bound the dataset.

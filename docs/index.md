@@ -1,6 +1,6 @@
 ---
-title: "Transboundary avain data for the Salish Sea: An R users guide"
-author: "Danielle Ethier"
+title: "Transboundary avain data for the Salish Sea"
+author: "Author: Danielle Ethier"
 date: "Version 1: October 2022"
 site: bookdown::bookdown_site
 documentclass: book
@@ -12,8 +12,10 @@ description: "Data documentation and R scripts to compile transboundary sea duck
 cover-image: NC.png
 ---
 
-# Welcome pacific sea duck data users! {.unnumbered}
+# Welcome data users! {.unnumbered}
 
-The purpose of this workbook is to provide you with a detailed data overview and R script to compile transboundary sea duck datasets for the Salish Sea. This step-by-step guide will walk you through each available data source, how to access the data, and how to compile it into a standardized data format. This resource will also give the user an overview of any data limitation, gaps, or consideration when using various dataset for independent research. We hope you find this guide useful for you independent or collaborative research endeavors.
+The purpose of this workbook is to provide you with a detailed data overview and R script to compile transboundary sea duck datasets for the Salish Sea. This step-by-step guide will walk you through each available data source, how to access the data, and how to compile it into a standardized data format. This resource will also give the user an overview of any limitation, gaps, or considerations when using various dataset. We hope you find this guide useful for you independent and collaborative research endeavors.
 
 <img src="images/SalishSea.PNG" width="700px" style="display: block; margin: auto;" />
+
+*Photo credit: The Oregonian*

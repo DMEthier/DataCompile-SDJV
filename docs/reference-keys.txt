@@ -1,5 +1,4 @@
 Intro1
-project-title
 Intro1.1
 Intro1.2
 guide-structure
@@ -11,7 +10,6 @@ BCCWS2.3
 BCCWS2.4
 BCCWS2.5
 BCCWS2.6
-BCCWS2.7
 BCMA3
 BCMA3.1
 BCMA3.2
@@ -19,7 +17,6 @@ BCMA3.3
 BCMA3.4
 BCMA3.5
 BCMA3.6
-BCMA3.7
 CPVS4
 CPVS4.1
 CPVS4.2
@@ -27,7 +24,6 @@ CPVS4.3
 CPVS4.4
 CPVS4.5
 CPVS4.6
-CPVS4.7
 PSSS5
 PSSS5.1
 PSSS5.2
@@ -35,7 +31,6 @@ PSSS5.3
 PSSS5.4
 PSSS5.5
 PSSS5.6
-PSSS5.7
 MASS6
 MASS6.1
 MASS6.2
@@ -43,7 +38,6 @@ MASS6.3
 MASS6.4
 MASS6.5
 MASS6.6
-MASS6.7
 eBird7
 eBird7.1
 eBird7.2
@@ -51,4 +45,25 @@ eBird7.3
 eBird7.4
 eBird7.5
 eBird7.6
-eBird7.7
+CBC8
+CBC8.1
+CBC8.2
+CBC8.3
+CBC8.4
+CBC8.5
+CBC8.6
+Data9
+Data9.1
+species-codes
+Data9.2
+bccws-bcma
+cpvs
+psss
+mass
+ebird
+cbc
+zero-filling-dataframe
+remove-rare-or-non-representative-species
+assigning-survey-period
+spatial-and-temporal-consideration
+Dev10
