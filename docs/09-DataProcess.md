@@ -100,6 +100,80 @@ BCMA<-BCMA %>% select(all_of(BMDE_col))
 The data will be received in an .xlsx file. Save as a .csv in the `Data` folder for processing using the following scripts. We will work with the sample dataset here which has the same formatting as the full dataset that you will receive.
 
 
+```r
+PSSS<-read.csv("Data/PSSS_sample.csv")
+
+#break apart position and reform into lat and long
+PSSS$position<-gsub("N", "", as.character(PSSS$position))
+PSSS$position<-gsub("W", "", as.character(PSSS$position))
+PSSS$position<-gsub("[^[:alnum:] ]", "", as.character(PSSS$position))
+PSSS<-PSSS %>% separate(position, into=c("lat1", "lat2", "long1", "long2"), sep=" ") #you may get a warning
+PSSS<-PSSS %>% mutate(DecimalLatitude=paste0(lat1, ".", lat2, sep=""), DecimalLongitude = paste0("-",long1, ".", long2, sep="")) %>% select(-lat1, -lat2, -long1, -long2)
+
+PSSS$DecimalLatitude<-as.numeric(PSSS$DecimalLatitude)
+PSSS$DecimalLongitude<-as.numeric(PSSS$DecimalLongitude)
+
+#break apart survey_date and reform into day, month, year
+PSSS<-PSSS %>% separate(survey_date, into=c("Date", "del"), sep=" ") %>% select(-del) %>% separate(Date, into=c("YearCollected", "MonthCollected", "DayCollected"), sep="-") 
+
+#wrangle raptor data into the long format since each species identification should be in a unique row. 
+raptor1<-PSSS %>% filter(raptor1 != "") %>% mutate(common_name = raptor1, bird_count = raptor1_count, notes= raptor1_affect)%>%  select(-raptor1, -raptor2, -raptor3, -raptor1_count, -raptor2_count, -raptor3_count, -raptor1_affect, -raptor2_affect, -raptor3_affect) 
+
+raptor2<-PSSS %>% filter(raptor2 != "") %>% mutate(common_name = raptor2, bird_count = raptor2_count, notes= raptor2_affect)%>%  select(-raptor1, -raptor2, -raptor3, -raptor1_count, -raptor2_count, -raptor3_count, -raptor1_affect, -raptor2_affect, -raptor3_affect) 
+
+raptor3<-PSSS %>% filter(raptor3 != "") %>% mutate(common_name = raptor3, bird_count = raptor3_count, notes= raptor3_affect) %>%  select(-raptor1, -raptor2, -raptor3, -raptor1_count, -raptor2_count, -raptor3_count, -raptor1_affect, -raptor2_affect, -raptor3_affect) 
+
+PSSS<-PSSS %>%  select(-raptor1, -raptor2, -raptor3, -raptor1_count, -raptor2_count, -raptor3_count, -raptor1_affect, -raptor2_affect, -raptor3_affect) 
+
+#bind raptor data back with PSSS data
+PSSS<-rbind(PSSS, raptor1)
+PSSS<-rbind(PSSS, raptor2)
+PSSS<-rbind(PSSS, raptor3)
+
+#remove rows with missing common name
+PSSS<-PSSS %>% filter(common_name !="")
+
+#replace Thayer's Gull with Ivory Gull
+PSSS<-PSSS %>% mutate(common_name = ifelse(common_name == "Thayer's Gull", "Ivory Gull", common_name))
+
+#Merge with species ID
+PSSS<-merge(PSSS, sp, by.x=c("common_name"), by.y= ("english_name"), all.x=TRUE)
+  
+#rename data columns to match BMDE
+PSSS<-PSSS %>% dplyr::rename(CommonName =common_name, SurveyAreaIdentifier= survey_site_id, Locality = site_name, MinimumElevationInMeters=elevation, MaximumElevationInMeters=elevation, TimeObservationsStarted=start_time, TimeCollected = start_time, TimeObservationsEnded=end_time, EffortMeasurement2= visibility_distance, EffortMeasurement3 = weather, EffortMeasurement4 = precipitation, EffortMeasurement5=sea_state, EffortMeasurement6=tide_movement, EffortMeasurement7=equipment, EffortMeasurement8= walker_count, EffortMeasurement9=dog_count, EffortMeasurement10=power_boat_count, EffortMeasurement11=unpowered_boat_count, BearingInDegrees = bearing, DistanceFromObserver = dist, ObservationCount = bird_count, ObservationCount2=large_flock_best, ObsCountAtLeast = large_flock_min, ObsCountAtMost = large_flock_max, FieldNotes=notes, Collector = name, ScientificName=scientific_name, SpeciesCode=species_code, AllSpeciesReported=is_complete)
+
+PSSS$BasisOfRecord <- "Observation"
+PSSS$CollectionCode <- "PSSS"
+PSSS$Continent <-"North America"
+PSSS$Country<-"United States"
+PSSS$StateProvince<-"Washington"
+PSSS$ProtocolType <- "PointCount"
+PSSS$ProtocolSpeciesTargeted <- "Waterbirds"
+PSSS$ProtocolURL= "https://seattleaudubon.org/wp-content/uploads/2021/01/PSSS_Protocol_2014-15.pdf"
+PSSS$SurveyAreaShape = "300 m"
+PSSS$EffortUnit1 = "Party-hours"
+PSSS$EffortUnit2 = "Visibility"
+PSSS$EffortUnit3= "Weather"
+PSSS$EffortUnit4= "Precipitation"
+PSSS$EffotUnit5="SeaState"
+PSSS$EffortUnit6="TideMovement"
+PSSS$EffortUnit7="Equipment"
+PSSS$EffortUnit8 = "WalkerCount"
+PSSS$EffortUnit9 = "DogCount"
+PSSS$EffortUnit10 = "PowerBoatCount"
+PSSS$EffortUnit11 = "UnpowerBoatCount"
+PSSS$ObservationDescriptor = "Total Count"
+PSSS$ObservationDescriptor2 = "Large flock best estiamte" 
+
+#Now that we have specified all the data columns we can, we will create the BMDE standardized data table. 
+
+#Identify the missing columns of data
+BMDE_col<-unique(BMDE$local_name)
+
+missing<-setdiff(BMDE_col, names(PSSS))
+PSSS[missing]<-" "
+PSSS<-PSSS[BMDE_col]
+```
 
 ### MASS
 
@@ -121,12 +195,15 @@ The tables provided will include:
 
 -   SpeciesPSEMP_Group: This associative table allows species observations to be crosswalked to composite groups that they participate in.
 
+-   PSEMP_SpeciesObservation_Attribute.xlsx: This is an extra table that was attained from the MASS group directly. It contains descriptors of the `PSEMP_Survey_Observations` layer. A copy of this table is saved in the `Data` director.
+
 We will work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.
 
 
 ```r
-MASS<-read.csv("Data/PSEMP_sample.csv")
+MASS<-read.csv("Data/PSEMP_sample.csv") #note the x and y were added in ArcGIS before export.
 
+#Get species code information from the NatureCounts R package (doublicate scripts)
 sp.code<-meta_species_codes()
 sp.code<-sp.code %>% filter(authority=="BSCDATA") %>% select(-authority, -species_id2, -rank) %>% distinct()
 
@@ -136,22 +213,63 @@ sp.tax<-sp.tax %>% select(species_id, scientific_name, english_name) %>% distinc
 sp<-left_join(sp.code, sp.tax, by="species_id")
 sp<-sp %>% distinct(english_name, .keep_all = TRUE)
 
-#load the species table
+#load the MASS species table
 sp_Mass<-read.csv("Data/PSEMP_species.csv")
 sp_Mass<-sp_Mass %>% select(TaxoNameID, PSEMP_CommonName, PSEMP_SpeciesCode, PSEMP_SciName1) %>% distinct() %>% filter(TaxoNameID>=1)
 
 #some species codes need changed in order to properly link this with the sp table from the NatureCounts database. 
-
 sp_Mass<-sp_Mass %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Cormorant, Brandt's", "BRAC", PSEMP_SpeciesCode)) %>% 
 mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Plover, American golden", "AMGP", PSEMP_SpeciesCode)) %>%  mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Duck, harlequin", "HARD", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, herring", "HERG", PSEMP_SpeciesCode)) %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, Heermann's", "HEEG", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Shoveler, northern", "NSHO", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Crow, northwestern", "NOCR", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Hawk, red-tailed", "HAHA", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Gull, Thayer's", "ICGU", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Swan, trumpeter", "TRUS", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Goose, white-fronted", "GWFG", PSEMP_SpeciesCode))  %>% mutate(PSEMP_SpeciesCode=ifelse(PSEMP_CommonName=="Pelican, American white", "AWPE", PSEMP_SpeciesCode)) %>% 
 filter(PSEMP_SpeciesCode!="HAPO") %>% 
 select(-TaxoNameID, -PSEMP_CommonName, -PSEMP_SciName1)
 
+#join species tables
 sp_Mass<-merge(sp_Mass, sp, by.x="PSEMP_SpeciesCode", by.y="species_code", all.x=TRUE)
 
+#join to observation data
+MASS<-left_join(MASS, sp_Mass, by="PSEMP_SpeciesCode")
 
-area_Mass<-read.csv("Data/PSEMP_SurveyArea.csv")
-route_Mass<-read.csv("Data/PSEMP_SurveyRoutes.csv")
+#join to the area table
+area_MASS<-read.csv("Data/PSEMP_SurveyArea.csv")
+area_MASS<-area_MASS %>% select(TransectID, SurveyYear, Shape_Length, Shape_Area)
+MASS<-left_join(MASS, area_MASS, by=c("TransectID", "SurveyYear"))
+
+#Separate data and time field into separate columns
+MASS$DateTimeFromLog<-as.Date(MASS$ObservationDateTime)
+MASS<-MASS %>% separate(ObservationDateTime, c("YearCollected", "MonthCollected", "del"), sep="-")
+MASS<-MASS %>% separate(del, c("DayCollected", "TimeCollected"), sep=" ") 
+
+#rename columns to match BMDE
+MASS<-MASS %>% dplyr::rename(RouteIdentifier=TransectID, ProtocolType=TransectType, CollectorNumber
+= ObserverID, SamplingEventIdentifier=ObservationID, BearingInDegrees=ObservationDegreesDTrue, DecimalLatitude=Y, DecimalLongitude=X, ScientificName = scientific_name, SpeciesCode=PSEMP_SpeciesCode, 
+CommonName=english_name, SurveyAreaSize=Shape_Area, Remarks=ObservationComment, EffortMeasurement12 = InShoreFlag, EffortMeasurement13=BeaufortScale, EffortMeasurement14=GlareScale, EffortMeasurement15=PocketEstuary)
+
+MASS<-MASS %>% mutate(ProtocolType=ifelse(ProtocolType==1, "Shoreline Transect", ifelse(ProtocolType==2, "Open Water Transect", "Null")))
+
+1-Observation on shoreline transect; 2-Observation on open water transect; Unsure why some years are Null
+
+MASS$EffortUnit12<-"InShoreFlag"
+MASS$EffortUnit13<-"BeaufortScale"
+MASS$EffortUnit14<-"GlareScale"
+MASS$EffortUnit15<-"PocketEstuary"
+MASS$BasisOfRecord <- "Observation"
+MASS$CollectionCode <- "MASS"
+MASS$Continent <-"North America"
+MASS$Country<-"United States"
+MASS$StateProvince<-"Washington"
+MASS$ProtocolSpeciesTargeted <- "Waterbirds"
+MASS$InstitutionCode<-"PSEMP"
+MASS$NumberOfObservers<-2
+
+
+#Now that we have specified all the data columns we can, we will create the BMDE standardized data table. 
+
+#Identify the missing columns of data
+BMDE_col<-unique(BMDE$local_name)
+
+missing<-setdiff(BMDE_col, names(MASS))
+MASS[missing]<-" "
+MASS<-MASS[BMDE_col]
 ```
 
 ### eBird
@@ -268,6 +386,8 @@ We will once again work with the sample dataset here which has the same formatti
 ## Assigning survey period
 
 Winter surveys more than often straddle two calendar years (e.g., start in October 2021 and end in April 2022). When doing an analysis you are often interested in 'year' as a covarite or random effect. We will call this data column survey `Period`.
+
+NOTE: The MASS dataset contains the `SurveyYear` which is the end year of the survey period. We removed this during data processing but will add it back here. 
 
 ## Spatial and temporal consideration
 

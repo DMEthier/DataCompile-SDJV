@@ -110,7 +110,7 @@ BCMA<-BCMA %>% select(all_of(BMDE_col))
 
 The data will be received in an .xlsx file. Save as a .csv in the `Data` folder for processing using the following scripts. We will work with the sample dataset here which has the same formatting as the full dataset that you will receive.
 
-```{r sample3, eval = FALSE, include=FALSE, warning=FALSE, message=FALSE, results=FALSE}
+```{r sample3, eval = FALSE, warning=FALSE, message=FALSE, results=FALSE}
 
 PSSS<-read.csv("Data/PSSS_sample.csv")
 
