@@ -1,7 +1,7 @@
-book_filename: "NatureCounts Introductory Tutorial"
+book_filename: "SDJV Data Compile 2022"
 chapter_name: "Chapter "
 repo: https://github.com/DMEthier/DataCompile-SDJV
 output_dir: docs
-rmd_files: ["index.Rmd", "01-Intro.Rmd", "02-BCCWS.Rmd", "03-BCMA.Rmd", "04-CPVS.Rmd", "05-PSSS.Rmd", "06-MASS.Rmd", "07-eBird.Rmd"]
+rmd_files: ["index.Rmd", "01-Intro.Rmd", "02-BCCWS.Rmd", "03-BCMA.Rmd", "04-CPVS.Rmd", "05-PSSS.Rmd", "06-MASS.Rmd", "07-eBird.Rmd", "08-CBC.Rmd", "09-DataProcess.Rmd", "10-ModelDevelop.Rmd"]
 clean: [packages.bib, bookdown.bbl]
 new_session: yes
