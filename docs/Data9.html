@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Data Processing | Transboundary avain data for the Salish Sea</title>
+  <title>Chapter 9 Data Processing | Transboundary avian data for the Salish Sea</title>
   <meta name="description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
   <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Data Processing | Transboundary avain data for the Salish Sea" />
+  <meta property="og:title" content="Chapter 9 Data Processing | Transboundary avian data for the Salish Sea" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
   <meta property="og:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
   <meta name="github-repo" content="DMEthier/DataCompile-SDJV" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Data Processing | Transboundary avain data for the Salish Sea" />
+  <meta name="twitter:title" content="Chapter 9 Data Processing | Transboundary avian data for the Salish Sea" />
   
   <meta name="twitter:description" content="Data documentation and R scripts to compile transboundary sea duck data for the Salish Sea" />
   <meta name="twitter:image" content="https://github.com/DMEthier/DataCompile-SDJV/NC.png" />
@@ -220,9 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3.6" data-path="Data9.html"><a href="Data9.html#cbc"><i class="fa fa-check"></i><b>9.3.6</b> CBC</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="Data9.html"><a href="Data9.html#zero-filling-dataframe"><i class="fa fa-check"></i><b>9.4</b> Zero-filling dataframe</a></li>
-<li class="chapter" data-level="9.5" data-path="Data9.html"><a href="Data9.html#remove-rare-or-non-representative-species"><i class="fa fa-check"></i><b>9.5</b> Remove rare or non-representative species</a></li>
-<li class="chapter" data-level="9.6" data-path="Data9.html"><a href="Data9.html#assigning-survey-period"><i class="fa fa-check"></i><b>9.6</b> Assigning survey period</a></li>
-<li class="chapter" data-level="9.7" data-path="Data9.html"><a href="Data9.html#spatial-and-temporal-consideration"><i class="fa fa-check"></i><b>9.7</b> Spatial and temporal consideration</a></li>
+<li class="chapter" data-level="9.5" data-path="Data9.html"><a href="Data9.html#assigning-survey-period"><i class="fa fa-check"></i><b>9.5</b> Assigning survey period</a></li>
+<li class="chapter" data-level="9.6" data-path="Data9.html"><a href="Data9.html#remove-rare-or-non-representative-species"><i class="fa fa-check"></i><b>9.6</b> Remove rare or non-representative species</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="Dev10.html"><a href="Dev10.html"><i class="fa fa-check"></i><b>10</b> Model Development</a></li>
 <li class="divider"></li>
@@ -237,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transboundary avain data for the Salish Sea</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Transboundary avian data for the Salish Sea</a>
           </h1>
         </div>
 
@@ -570,17 +569,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="zero-filling-dataframe" class="section level2 hasAnchor" number="9.4">
 <h2><span class="header-section-number">9.4</span> Zero-filling dataframe<a href="Data9.html#zero-filling-dataframe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
-<div id="remove-rare-or-non-representative-species" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> Remove rare or non-representative species<a href="Data9.html#remove-rare-or-non-representative-species" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-</div>
-<div id="assigning-survey-period" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> Assigning survey period<a href="Data9.html#assigning-survey-period" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="assigning-survey-period" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Assigning survey period<a href="Data9.html#assigning-survey-period" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Winter surveys more than often straddle two calendar years (e.g., start in October 2021 and end in April 2022). When doing an analysis you are often interested in ‘year’ as a covarite or random effect. We will call this data column survey <code>Period</code>.</p>
 <p>NOTE: The MASS dataset contains the <code>SurveyYear</code> which is the end year of the survey period. We removed this during data processing but will add it back here.</p>
 </div>
-<div id="spatial-and-temporal-consideration" class="section level2 hasAnchor" number="9.7">
-<h2><span class="header-section-number">9.7</span> Spatial and temporal consideration<a href="Data9.html#spatial-and-temporal-consideration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First spatially and temporally bound the dataset.</p>
+<div id="remove-rare-or-non-representative-species" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Remove rare or non-representative species<a href="Data9.html#remove-rare-or-non-representative-species" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

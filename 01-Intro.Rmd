@@ -26,8 +26,8 @@ This R user guide aims to fulfill one of the key project initiatives: to identif
 (1) Which transboundary data resources are available
 (2) Who the data owners are and how to access the data with appropriate permissions
 (3) How the datasets are structured, including details on the data collection protocols
-(4) What the limitations, challenges, and opportunities are associates with each datasets
-(5) How to compile the datasets into a standardize data format
+(4) What the limitations, challenges, and opportunities are associated with each dataset
+(5) How to compile the datasets into a standardized data format
 
 > **WARNING: This guide may not provide all the details needed for the specific analysis you are interested in doing. Data users are responsible for understanding the data collection protocols before proceeding. If in doubt, reach out to the data owner with your questions!**
 

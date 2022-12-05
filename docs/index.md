@@ -1,5 +1,5 @@
 ---
-title: "Transboundary avain data for the Salish Sea"
+title: "Transboundary avian data for the Salish Sea"
 author: "Author: Danielle Ethier"
 date: "Version 1: October 2022"
 site: bookdown::bookdown_site

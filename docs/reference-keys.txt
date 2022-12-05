@@ -63,7 +63,6 @@ mass
 ebird
 cbc
 zero-filling-dataframe
-remove-rare-or-non-representative-species
 assigning-survey-period
-spatial-and-temporal-consideration
+remove-rare-or-non-representative-species
 Dev10

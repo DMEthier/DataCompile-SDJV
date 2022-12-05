@@ -379,9 +379,9 @@ The tables provided will include:
 
 We will once again work with the sample dataset here which has the same formatting as the full dataset that you will receive through the online download.
 
+
 ## Zero-filling dataframe
 
-## Remove rare or non-representative species
 
 ## Assigning survey period
 
@@ -389,6 +389,5 @@ Winter surveys more than often straddle two calendar years (e.g., start in Octob
 
 NOTE: The MASS dataset contains the `SurveyYear` which is the end year of the survey period. We removed this during data processing but will add it back here. 
 
-## Spatial and temporal consideration
+## Remove rare or non-representative species
 
-First spatially and temporally bound the dataset.
